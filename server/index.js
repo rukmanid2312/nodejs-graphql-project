@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 6969;
 const userdata = require("./MOCK_DATA.json");
+const cors = require("cors");
 const {
   GraphQLSchema,
   GraphQLObjectType,
@@ -62,6 +63,11 @@ const Mutation = new GraphQLObjectType({
   },
 });
 const schema = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(
   "/graphql",
   graphqlHTTP({
